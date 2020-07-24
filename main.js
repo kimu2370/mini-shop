@@ -9,33 +9,38 @@ const createItemElement = () => {
   return liElement;
 };
 
+// 해당 항목을 세팅하는 함수
 const setItemData = (item, element) => {
   element.firstElementChild.src = `${PATH}${item.img}`;
   element.lastElementChild.innerText = `${item.gender} ,${item.size} size`;
 };
 
+const handleClick = (event) => {
+  const list = document.querySelector(".shop__list");
+  const target = event.target.classList.value;
+  if(!target) {
+    return;
+  }
+
+  list.innerHTML = "";
+  data.forEach((item) => {
+    if (item.product !== target && item.color !== target) {
+      return;
+    }
+    const element = createItemElement();
+    setItemData(item, element);
+    list.appendChild(element);
+  });
+}
+
+// 선택한 리스트를 보여주는 함수
 const selectList = () => {
   const selectBtn = document.querySelector(".shop__btn");
 
-  selectBtn.addEventListener("click", (e) => {
-    const list = document.querySelector(".shop__list");
-    const target = e.target.classList.value;
-    if (target) {
-      list.innerHTML = "";
-      data.filter((item) => {
-        (item.product === target || item.color === target) &&
-          (() => {
-            const element = createItemElement();
-            setItemData(item, element);
-            list.appendChild(element);
-          })();
-      });
-    } else {
-      return;
-    }
-  });
+  selectBtn.addEventListener("click", handleClick);
 };
 
+// init mini-shop
 (() => {
   const list = document.querySelector(".shop__list");
   data.map((item) => {
