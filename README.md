@@ -10,3 +10,5 @@
 
 ### 결과물
 아래 링크를 통해 결과물을 확인할 수 있습니다.
+
+https://kimu2370.github.io/mini-shop/
